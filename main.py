@@ -24,7 +24,10 @@ def index():
 @app.route('/admin')
 def admin():
     return render_template('/admin/admin.html')
-    
+
+@app.route('/test')  
+def test():
+    return "hello"
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
