@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 # configs
 from configs.configurations import Development, Testing, Production
@@ -13,6 +13,9 @@ from models.inventory import Inventory
 from models.stock import Stock
 from models.sales import Sales
 
+# services
+from services.inventory import InventoryService
+
 @app.before_first_request
 def create():
     db.create_all()
@@ -21,13 +24,13 @@ def create():
 def index():
     return render_template('/landing/index.html')
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return render_template('/admin/admin.html')
+    if request.method == 'POST':
+        InventoryService.add_inventory()
+        
+    return InventoryService.inventories()
 
-@app.route('/test')  
-def test():
-    return "hello"
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
