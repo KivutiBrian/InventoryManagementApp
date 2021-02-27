@@ -18,31 +18,21 @@
     <!-- css block -->
 
 
-
     {% block cssLinks %}{% endblock %}
 </head>
 <body>
-
+    
+    <!-- PAGE NAVBAR -->
     {% include '/includes/navbar.html' %}
 
+    <!-- CONTENT AREA -->
     <div class="container">
         <div class="row">
-
-            <div class="col-3 mt-4">
-                <!-- sidenav -->
-                {% include '/includes/sidenav.html' %}
-            </div>
-
-            <div class="col-9 mt-4">
-                <!-- Content here -->
-                {% block content %}{% endblock %}
-            </div>
+            <!-- Content here -->
+            {% block content %}{% endblock %}
         </div>
-        
     </div>
 
-    
-    
     <script src="/static/js/main.js"></script>
 
     <!-- bootstrap js -->

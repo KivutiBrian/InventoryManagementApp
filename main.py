@@ -24,12 +24,16 @@ def create():
 def index():
     return render_template('/landing/index.html')
 
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
     if request.method == 'POST':
         InventoryService.add_inventory()
         
     return InventoryService.inventories()
+
+@app.route('/inventories', methods=['GET', 'POST'])
+def inventories():
+    return render_template('/admin/inventories.html')
 
 
 if __name__ == '__main__':

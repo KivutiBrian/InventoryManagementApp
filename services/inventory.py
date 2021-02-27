@@ -11,7 +11,7 @@ class InventoryService:
         # get all inventories
         all_inventories = Inventory.fetch_all()
         print("Heree:", all_inventories)
-        return render_template('/admin/admin.html')
+        return render_template('/admin/dashboard.html')
 
     @classmethod
     def add_inventory(cls):
