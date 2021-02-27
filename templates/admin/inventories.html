@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block pageTitle %}Admin - Inventory Management System{% endblock  %}
+{% block pageTitle %}Inventory - Inventory Management System{% endblock  %}
 
 {% block cssLinks %}{% endblock %}
 
@@ -23,7 +23,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="{{ url_for('dashboard') }}" method="POST">
+              <form action="{{ url_for('inventories') }}" method="POST">
                 <div class="form-floating mb-3">
                   <input required type="text" class="form-control" name="name" id="floatingInput" >
                   <label for="floatingInput">Name</label>
@@ -58,6 +58,10 @@
       </div>
     </div>
   </div>
+
+  <!-- alert -->
+  {% include '/includes/alert.html' %}
+
   <!-- table -->
   <div class="row mt-3">
     <div class="col">
@@ -81,7 +85,7 @@
             <td>{{ inv.itype }}</td>
             <td>{{ inv.bp }}</td>
             <td>{{ inv.sp }}</td>
-            <td>{{ inv.created_at.strftime("%d/%m/%Y") }}</td> 
+            <td>{{ inv.created_at.strftime("%d-%m-%Y") }}</td> 
             <!-- , %H:%M:%S -->
           </tr>
           {% endfor %}
@@ -94,53 +98,4 @@
 {% endblock %}
 
 
-{% block jsLinks %}
-
-<script>
-  // Bar chart
-  new Chart(document.getElementById("bar-chart"), {
-    type: 'bar',
-    data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
-    }
-  });
-</script>
-
-<script>
-  new Chart(document.getElementById("pie-chart"), {
-      type: 'pie',
-      data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-        datasets: [{
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
-      }
-  });
-</script>
-
-
-
-
-{% endblock %}
+{% block jsLinks %}{% endblock %}

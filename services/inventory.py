@@ -1,4 +1,4 @@
-from flask import render_template,request, redirect, url_for
+from flask import render_template,request, redirect, url_for, flash
 # models
 from models.inventory import Inventory
 from models.stock import Stock
@@ -10,11 +10,7 @@ class InventoryService:
     def inventories(cls):
         # get all inventories
         all_inventories = Inventory.fetch_all()
-        print(all_inventories)
-        return render_template('/admin/inventories.html', inventories=all_inventories)
-
-    @classmethod
-    def add_inventory(cls):
+        
         if request.method == 'POST':
             name:str = request.form['name']
             itype:str = request.form['category']
@@ -22,11 +18,17 @@ class InventoryService:
             sp = request.form['bp']
 
             # check if the inventory name exists
-            if Inventory.check_inventorty_exists(inventory_name=name):
-                print("The inventory already exists")
+            inv = Inventory.check_inventorty_exists(name)
+
+            if inv is None:
+                flash('Inventory name already exists', 'danger')
                 return redirect(url_for('inventories'))
             else:
                 record = Inventory(name=name.title(),itype= itype.title(),bp = bp,sp=sp)
                 record.create_record()
-                print("Success!")
+                flash('Successfully added', 'success')
                 return redirect(url_for('inventories'))
+            
+        return render_template('/admin/inventories.html', inventories=all_inventories)
+
+   

@@ -27,8 +27,5 @@ class Inventory(db.Model):
     # check if inventory name exists
     @classmethod
     def check_inventorty_exists(cls,inventory_name:str):
-        record = cls.query.filter_by(name=inventory_name).first()
-        if record:
-            return True
-        else:
-            return False
+        return cls.query.filter_by(name=inventory_name).first()
+       

@@ -2,7 +2,7 @@ import os
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    SECRRET_KEY = os.environ.get("SECRET_KEY")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
 
 class Development(Config):
     FLASK_APP = os.environ.get('FLASK_APP')

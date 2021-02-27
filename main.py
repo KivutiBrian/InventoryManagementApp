@@ -35,12 +35,8 @@ def index():
 def dashboard():
     return render_template('/admin/dashboard.html')
 
-
 @app.route('/inventories', methods=['GET', 'POST'])
 def inventories():
-    if request.method == 'POST':
-        InventoryService.add_inventory() 
-
     return InventoryService.inventories()
 
 
