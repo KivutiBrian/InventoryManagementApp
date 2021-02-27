@@ -6,8 +6,47 @@
 
 {% block content %}
 
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+              <div class="card-header">Inventories</div>
+              <div class="card-body">
+                <p class="card-text">500</p>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+              <div class="card-header">Categories</div>
+              <div class="card-body">
+                
+                <p class="card-text">
+                  4
+                </p>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+              <div class="card-header">Users</div>
+              <div class="card-body">
+                
+                <p class="card-text">4</p>
+              </div>
+          </div>
+      </div>
+  </div>
 
-<h2>Dashboard</h2>
+  <div class="row">
+      <div class="col">
+        <canvas id="bar-chart" width="450" height="450"></canvas>
+      </div>
+      <div class="col">
+        <canvas id="pie-chart" width="150" height="200"></canvas>
+      </div>  
+  </div>
+</div>
 
 {% endblock %}
 

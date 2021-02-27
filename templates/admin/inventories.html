@@ -6,8 +6,90 @@
 
 {% block content %}
 
+<div class="container">
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-md btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        add Inventory
+      </button>
 
-<h2>Inventories</h2>
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Add New Inventory</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url_for('dashboard') }}" method="POST">
+                <div class="form-floating mb-3">
+                  <input required type="text" class="form-control" name="name" id="floatingInput" >
+                  <label for="floatingInput">Name</label>
+                </div>
+                <div class="form-group">
+                  <label for="">Select Category</label>
+                  <select name="category" id="" required class="form-control">
+                    <option></option>
+                    <option value="product">Product</option>
+                    <option value="service">Service</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Buying Price</label>
+                  <input class="form-control" type="text" name="bp" id="" required>
+                </div>
+                <div class="form-group">
+                  <label for="">Selling Price</label>
+                  <input class="form-control" type="text" name="sp" id="" required>
+                </div>
+                <div class="form-group mt-3">
+                  <button type="submit" class="btn btn-success ">Submit</button>
+                </div>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- table -->
+  <div class="row mt-3">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">INV-ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">BP</th>
+            <th scope="col">SP</th>
+            <th scope="col">CREATED-AT</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for inv in inventories %}
+          <tr>
+            <th scope="row">{{ inv.id }}</th>
+            <td>{{ inv.name }}</td>
+            <td>{{ inv.itype }}</td>
+            <td>{{ inv.bp }}</td>
+            <td>{{ inv.sp }}</td>
+            <td>{{ inv.created_at.strftime("%d/%m/%Y") }}</td> 
+            <!-- , %H:%M:%S -->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 

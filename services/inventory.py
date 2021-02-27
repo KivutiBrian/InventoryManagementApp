@@ -10,8 +10,8 @@ class InventoryService:
     def inventories(cls):
         # get all inventories
         all_inventories = Inventory.fetch_all()
-        print("Heree:", all_inventories)
-        return render_template('/admin/dashboard.html')
+        print(all_inventories)
+        return render_template('/admin/inventories.html', inventories=all_inventories)
 
     @classmethod
     def add_inventory(cls):
@@ -24,9 +24,9 @@ class InventoryService:
             # check if the inventory name exists
             if Inventory.check_inventorty_exists(inventory_name=name):
                 print("The inventory already exists")
-                return redirect(url_for('admin'))
+                return redirect(url_for('inventories'))
             else:
                 record = Inventory(name=name.title(),itype= itype.title(),bp = bp,sp=sp)
                 record.create_record()
                 print("Success!")
-                return redirect(url_for('admin'))
+                return redirect(url_for('inventories'))

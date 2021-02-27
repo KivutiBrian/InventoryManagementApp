@@ -16,6 +16,13 @@ from models.sales import Sales
 # services
 from services.inventory import InventoryService
 
+
+# error handlers
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('/errors/404.html'), 404
+
+
 @app.before_first_request
 def create():
     db.create_all()
@@ -26,14 +33,15 @@ def index():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if request.method == 'POST':
-        InventoryService.add_inventory()
-        
-    return InventoryService.inventories()
+    return render_template('/admin/dashboard.html')
+
 
 @app.route('/inventories', methods=['GET', 'POST'])
 def inventories():
-    return render_template('/admin/inventories.html')
+    if request.method == 'POST':
+        InventoryService.add_inventory() 
+
+    return InventoryService.inventories()
 
 
 if __name__ == '__main__':
