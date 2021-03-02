@@ -20,7 +20,7 @@ class InventoryService:
             # check if the inventory name exists
             inv = Inventory.check_inventorty_exists(name)
 
-            if inv is None:
+            if inv is not None:
                 flash('Inventory name already exists', 'danger')
                 return redirect(url_for('inventories'))
             else:
