@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 # configs
 from configs.configurations import Development, Testing, Production
@@ -39,6 +39,46 @@ def dashboard():
 def inventories():
     return InventoryService.inventories()
 
+
+@app.route("/inventories/<int:inv_id>/restock", methods=['POST'])
+def restock(inv_id):
+    if request.method == 'POST':
+        qty = request.form['qty']
+        
+        r = Stock(quantity=qty,inventoryId=inv_id)
+        r.create_record()
+        flash("New stock successfully added", "success")
+
+        return redirect(url_for('inventories'))
+
+@app.route("/inventories/<int:inv_id>/make-sale", methods=['POST'])
+def make_sale(inv_id):
+    if request.method == "POST":
+        qty = request.form['qty']
+
+        s = Sales(quantity=qty, inventoryId=inv_id)
+        s.create_record()
+        flash("Sale successfully recorded", "success")
+        return redirect(url_for('inventories'))
+
+
+@app.route('/inventories/<int:inv_id>/edit', methods=['POST'])
+def edit_inventory(inv_id):
+    if request.method == 'POST':
+        name:str = request.form['name']
+        itype:str = request.form['category']
+        bp = request.form['bp']
+        sp = request.form['sp']
+
+        u = Inventory.edit_inventory(
+            inv_id=inv_id,
+            name=name,
+            itype=itype,
+            bp=bp,
+            sp=sp
+        )
+        flash("Inventory record successfully updated", "success")
+        return redirect(url_for('inventories'))
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True

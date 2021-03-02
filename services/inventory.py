@@ -15,7 +15,7 @@ class InventoryService:
             name:str = request.form['name']
             itype:str = request.form['category']
             bp = request.form['bp']
-            sp = request.form['bp']
+            sp = request.form['sp']
 
             # check if the inventory name exists
             inv = Inventory.check_inventorty_exists(name)

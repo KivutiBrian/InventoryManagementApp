@@ -28,4 +28,16 @@ class Inventory(db.Model):
     @classmethod
     def check_inventorty_exists(cls,inventory_name:str):
         return cls.query.filter_by(name=inventory_name).first()
+
+    @classmethod
+    def edit_inventory(cls, inv_id, name, itype, bp, sp):
+        record = cls.query.filter_by(id=inv_id).first()
+        if record:
+            record.name = name
+            record.itype= itype
+            record.bp = bp
+            record.sp = sp
+            db.session.commit()
+            return record
+        return record
        

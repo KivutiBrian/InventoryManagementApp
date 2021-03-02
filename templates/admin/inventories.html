@@ -72,6 +72,7 @@
             <th scope="col">INV-ID</th>
             <th scope="col">NAME</th>
             <th scope="col">TYPE</th>
+            <th scope="col">QUANTITY</th>
             <th scope="col">BP</th>
             <th scope="col">SP</th>
             <th scope="col">CREATED-AT</th>
@@ -88,6 +89,7 @@
             <th scope="row">{{ inv.id }}</th>
             <td>{{ inv.name }}</td>
             <td>{{ inv.itype }}</td>
+            <td></td>
             <td>{{ inv.bp }}</td>
             <td>{{ inv.sp }}</td>
             <td>{{ inv.created_at.strftime("%d-%m-%Y") }}</td> 
@@ -109,11 +111,22 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ...
+                      <form action="{{ url_for('make_sale', inv_id=inv.id)  }}" method="post">
+                        <div class="form-group">
+                          <label for="">Quantity</label>
+                          <input type="text" name="qty" class="form-control" required>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="hidden" name="inv_id" value="{{ inv.id }}" class="form-control" required>
+                        </div>
+                        <div class="form-group mt-2">
+                          <button class="btn btn-md btn-success mx-auto">Submit</button>
+                        </div>
+                      </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Understood</button>
+                      
                     </div>
                   </div>
                 </div>
@@ -134,11 +147,21 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ...
+                      <form action="{{ url_for('restock', inv_id=inv.id)  }}" method="post">
+                        <div class="form-group">
+                          <label for="">Quantity</label>
+                          <input type="text" name="qty" class="form-control" required>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="hidden" name="inv_id" value="{{ inv.id }}" class="form-control" required>
+                        </div>
+                        <div class="form-group mt-2">
+                          <button class="btn btn-md btn-success mx-auto">Submit</button>
+                        </div>
+                      </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Understood</button>
                     </div>
                   </div>
                 </div>
@@ -159,7 +182,32 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ...
+                      <form action="{{ url_for('edit_inventory', inv_id=inv.id) }}" method="POST">
+                        <div class="form-floating mb-3">
+                          <input required type="text" class="form-control" value="{{ inv.name }}" name="name" id="floatingInput" >
+                          <label for="floatingInput">Name</label>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Select Category</label>
+                          <select name="category" id="" required class="form-control" >
+                            <option selected value="product">{{ inv.itype }}</option>
+                            <option value="product">Product</option>
+                            <option value="service">Service</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Buying Price</label>
+                          <input class="form-control" type="text" value="{{ inv.bp }}" name="bp" id="" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="">Selling Price</label>
+                          <input class="form-control" type="text" value="{{ inv.sp }}" name="sp" id="" required>
+                        </div>
+                        <div class="form-group mt-3">
+                          <button type="submit" class="btn btn-success ">Submit</button>
+                        </div>
+                        
+                      </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
