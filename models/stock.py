@@ -13,3 +13,7 @@ class Stock(db.Model):
         db.session.add(self)
         db.session.commit()
         return self
+        
+    @classmethod
+    def fetch_all(cls):
+        return cls.query.all()

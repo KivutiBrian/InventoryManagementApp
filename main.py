@@ -49,7 +49,9 @@ def index():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('/admin/dashboard.html')
+    total_inventories = len(Inventory.fetch_all())
+
+    return render_template('/admin/dashboard.html', ti=total_inventories)
 
 @app.route('/inventories', methods=['GET', 'POST'])
 def inventories():
@@ -95,6 +97,21 @@ def edit_inventory(inv_id):
         )
         flash("Inventory record successfully updated", "success")
         return redirect(url_for('inventories'))
+
+
+#################################################################
+"""Stock"""
+@app.route('/stock')
+def stock():
+    all_stock = Stock.fetch_all()
+    return render_template('admin/stock.html', all_stock=all_stock)
+
+@app.route('/sales')
+def sales():
+    all_sales = Sales.fetch_all()
+    return render_template('admin/sales.html', all_sales=all_sales)
+
+
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
