@@ -89,7 +89,14 @@
             <th scope="row">{{ inv.id }}</th>
             <td>{{ inv.name }}</td>
             <td>{{ inv.itype }}</td>
-            <td></td>
+
+            {% if compute_quanity(inv.id) >= 10 %}
+            <td style="font-size: 20px;font-weight:bold;" class="text-success text-monospace">{{ compute_quanity(inv.id) }}</td>
+            {% else %}
+            <td style="font-size: 20px;font-weight:bold;" class="text-danger text-monospace">{{ compute_quanity(inv.id) }}</td>
+            {% endif %}
+
+
             <td>{{ inv.bp }}</td>
             <td>{{ inv.sp }}</td>
             <td>{{ inv.created_at.strftime("%d-%m-%Y") }}</td> 
@@ -134,9 +141,17 @@
 
             </td>
             <td>
-              <button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#restock{{inv.id}}">
-                <i class="fas fa-plus"></i>
-              </button>
+
+              {% if compute_quanity(inv.id) >=10 %}
+
+                <button disabled type="button" class="btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#restock{{inv.id}}">
+                  <i class="fas fa-plus"></i>
+                </button>
+              {% else %}
+                <button disabled type="button" class="btn btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#restock{{inv.id}}">
+                  <i class="fas fa-plus"></i>
+                </button>
+              {% endif %}
 
               <!-- Modal -->
               <div class="modal fade" id="restock{{inv.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

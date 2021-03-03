@@ -24,6 +24,11 @@ class Inventory(db.Model):
     def fetch_all(cls):
         return cls.query.all()
 
+
+    @classmethod
+    def get_inventory_byID(cls, id:int):
+        return cls.query.filter_by(id=id).first()
+
     # check if inventory name exists
     @classmethod
     def check_inventorty_exists(cls,inventory_name:str):
