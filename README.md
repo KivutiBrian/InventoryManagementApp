@@ -8,7 +8,7 @@ add inventory stock and track the sales made.
 1.Clone Repo
 
 ```
-https://github.com/KivutiBrian/mpesa_apis.git
+https://github.com/KivutiBrian/InventoryManagementApp.git
 ```
 
 2.Create Virtual Environment folder
